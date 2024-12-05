@@ -1,0 +1,10 @@
+/.idea/
+.env
+.vscode/
+vendor/
+build_local/
+.DS_Store
+*.log
+
+tool__log*
+tool__result*
