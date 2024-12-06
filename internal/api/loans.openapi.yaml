@@ -1,0 +1,78 @@
+openapi: 3.0.0
+info:
+  title: Decentralized Loan Service
+  version: 1.0.0
+paths:
+  /loans:
+    post:
+      summary: Create a loan
+      operationId: createLoan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoanRequest'
+      responses:
+        '200':
+          description: Loan created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanResponse'
+
+  /loans/{loanId}/repay:
+    post:
+      summary: Repay a loan
+      operationId: repayLoan
+      parameters:
+        - name: loanId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: uint64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepayRequest'
+      responses:
+        '200':
+          description: Loan repaid
+components:
+  schemas:
+    LoanRequest:
+      type: object
+      properties:
+        borrower:
+          type: string
+        amount:
+          type: number
+          format: double
+        collateral:
+          type: number
+          format: double
+
+    LoanResponse:
+      type: object
+      properties:
+        loanId:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        collateral:
+          type: number
+          format: double
+        dueDate:
+          type: string
+
+    RepayRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
